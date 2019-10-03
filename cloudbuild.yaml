@@ -1,0 +1,17 @@
+steps:
+  - name: "gcr.io/cloud-builders/gcloud"
+    id: validate
+    args:
+      - endpoints
+      - services
+      - deploy
+      - openapi-functions.yaml
+      - --validate-only
+  - name: "gcr.io/cloud-builders/gcloud"
+    waitFor:
+      - validate
+    args:
+      - endpoints
+      - services
+      - deploy
+      - openapi-functions.yaml
