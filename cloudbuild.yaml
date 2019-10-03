@@ -8,6 +8,7 @@ steps:
       - openapi-functions.yaml
       - --validate-only
   - name: "gcr.io/cloud-builders/gcloud"
+    id: deploy
     waitFor:
       - validate
     args:
@@ -15,3 +16,15 @@ steps:
       - services
       - deploy
       - openapi-functions.yaml
+  - name: "gcr.io/cloud-builders/gcloud"
+    waitFor:
+      - deploy
+    args:
+      - beta
+      - run
+      - deploy
+      - esp
+      - --image=gcr.io/endpoints-release/endpoints-runtime-serverless:1
+      - --allow-unauthenticated
+      - --platform=managed
+      - --region=us-central1
