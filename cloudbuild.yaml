@@ -24,7 +24,7 @@ steps:
       - run
       - deploy
       - esp
-      - --image=gcr.io/endpoints-release/endpoints-runtime-serverless:1
+      - --image=gcr.io/endpoints-release/endpoints-runtime-serverless:1.40.0
       - --allow-unauthenticated
       - --platform=managed
       - --region=us-central1

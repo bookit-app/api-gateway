@@ -30,6 +30,13 @@ definitions:
         type: string
       uid:
         type: string
+    required:
+      - uid
+      - firstName
+      - lastName
+      - isProvider
+      - isSocial
+      - phoneNumber
   Message:
     type: object
     properties:
