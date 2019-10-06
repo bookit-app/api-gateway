@@ -4,5 +4,5 @@ steps:
       - endpoints
       - services
       - deploy
-      - openapi-functions.yaml
+      - openapi.yaml
       - --validate-only

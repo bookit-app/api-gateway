@@ -1,0 +1,153 @@
+swagger: "2.0"
+info:
+  title: Bookit Backend API
+  description: Sample API on Cloud Endpoints with a Google Cloud Functions backend
+  version: 0.0.1
+host: esp-vllmtwjp2a-uc.a.run.app
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+definitions:
+  Id:
+    type: string
+    minLength: 3
+  Gender:
+    type: string
+    enum: ["M", "F", "O"]
+  PhoneNumber:
+    type: string
+    pattern: "/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/"
+  Profile:
+    type: object
+    properties:
+      address:
+        $ref: "#/definitions/Address"
+      birthday:
+        type: string
+        format: date
+      email:
+        type: string
+        format: email
+      firstName:
+        type: string
+        minLength: 1
+      gender:
+        $ref: "#/definitions/Gender"
+      isProvider:
+        type: boolean
+      isSocial:
+        type: boolean
+      lastName:
+        type: string
+        minLength: 1
+      phoneNumber:
+        $ref: "#/definitions/PhoneNumber"
+      uid:
+        $ref: "#/definitions/Id"
+    required:
+      - uid
+      - email
+      - firstName
+      - lastName
+      - isProvider
+      - isSocial
+  Address:
+    type: object
+    properties:
+      city:
+        type: string
+      state:
+        type: string
+      streetAddress:
+        type: string
+      zip:
+        type: number
+  Message:
+    type: object
+    properties:
+      code:
+        type: string
+      message:
+        type: string
+      technicalError:
+        type: string
+paths:
+  /profile:
+    post:
+      summary: Create a new User Profile
+      operationId: profileCreate
+      x-google-backend:
+        address: https://create-profile-vllmtwjp2a-uc.a.run.app/
+      parameters:
+        - in: body
+          name: profile
+          description: Details of the profile to be created
+          schema:
+            $ref: "#/definitions/Profile"
+      responses:
+        201:
+          description: Profile is created
+        400:
+          description: Request is malformed or profile already exists
+          schema:
+            $ref: "#/definitions/Message"
+    get:
+      summary: Query for a user profile
+      operationId: profileQuery
+      x-google-backend:
+        address: https://query-profile-vllmtwjp2a-uc.a.run.app/
+      parameters:
+        - in: query
+          name: profileId
+          type: string
+          description: Profile ID to be queried. Typically the UID of the user
+      responses:
+        200:
+          description: Profile was found
+          schema:
+            $ref: "#/definitions/Profile"
+        400:
+          description: Invalid request typically profileId is missing
+        404:
+          description: Profile doesn't exist
+    patch:
+      summary: Modify a user profile
+      operationId: profileUpdate
+      x-google-backend:
+        address: https://update-profile-vllmtwjp2a-uc.a.run.app/
+      parameters:
+        - in: body
+          name: profile
+          description: Details of the profile to be created
+          schema:
+            type: object
+            properties:
+              address:
+                $ref: "#/definitions/Address"
+              birthday:
+                type: string
+                format: date
+              gender:
+                $ref: "#/definitions/Gender"
+              isProvider:
+                type: boolean
+              phoneNumber:
+                $ref: "#/definitions/PhoneNumber"
+              uid:
+                $ref: "#/definitions/Id"
+            required:
+              - uid
+      responses:
+        200:
+          description: Updates were successful
+        400:
+          description: Request is malformed
+          schema:
+            $ref: "#/definitions/Message"
+        500:
+          description: System Error
+          schema:
+            $ref: "#/definitions/Message"
