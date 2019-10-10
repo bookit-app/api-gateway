@@ -151,3 +151,29 @@ paths:
           description: System Error
           schema:
             $ref: "#/definitions/Message"
+  /profile/{profileId}:
+    delete:
+      summary: Delete user profile
+      operationId: profileDelete
+      x-google-backend:
+        address: https://delete-profile-vllmtwjp2a-uc.a.run.app/
+        path_translation: APPEND_PATH_TO_ADDRESS
+      parameters:
+        - in: path
+          name: profileId
+          type: string
+          required: true
+          description: Profile ID to be deleted. Typically the UID of the user
+      responses:
+        204:
+          description: Profile was deleted
+        400:
+          description: Invalid request profileId is missing
+          schema:
+            $ref: "#/definitions/Message"
+        404:
+          description: Profile doesn't exist
+        500:
+          description: Server failed to handle the request
+          schema:
+            $ref: "#/definitions/Message"
