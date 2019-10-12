@@ -104,25 +104,6 @@ paths:
           description: Request is malformed or profile already exists
           schema:
             $ref: "#/definitions/Message"
-    get:
-      summary: Query for a user profile
-      operationId: profileQuery
-      x-google-backend:
-        address: https://query-profile-vllmtwjp2a-uc.a.run.app/
-      parameters:
-        - in: query
-          name: profileId
-          type: string
-          description: Profile ID to be queried. Typically the UID of the user
-      responses:
-        200:
-          description: Profile was found
-          schema:
-            $ref: "#/definitions/Profile"
-        400:
-          description: Invalid request typically profileId is missing
-        404:
-          description: Profile doesn't exist
     patch:
       summary: Modify a user profile
       operationId: profileUpdate
@@ -161,7 +142,29 @@ paths:
           description: System Error
           schema:
             $ref: "#/definitions/Message"
+            
   /profile/{profileId}:
+    get:
+      summary: Query for a user profile
+      operationId: profileQuery
+      x-google-backend:
+        address: https://query-profile-vllmtwjp2a-uc.a.run.app/
+        path_translation: APPEND_PATH_TO_ADDRESS
+      parameters:
+        - in: path
+          name: profileId
+          type: string
+          required: true
+          description: Profile ID to be queried. Typically the UID of the user
+      responses:
+        200:
+          description: Profile was found
+          schema:
+            $ref: "#/definitions/Profile"
+        400:
+          description: Invalid request typically profileId is missing
+        404:
+          description: Profile doesn't exist
     delete:
       summary: Delete user profile
       operationId: profileDelete
