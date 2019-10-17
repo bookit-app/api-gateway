@@ -25,6 +25,8 @@ definitions:
     properties:
       address:
         $ref: "#/definitions/Address"
+      preferences:
+        $ref: "#/definitions/Preferences"
       birthday:
         type: string
         format: date
@@ -38,17 +40,12 @@ definitions:
         $ref: "#/definitions/Gender"
       isProvider:
         type: boolean
-      isSocial:
-        type: boolean
       lastName:
         type: string
         minLength: 1
       phoneNumber:
         $ref: "#/definitions/PhoneNumber"
-      uid:
-        $ref: "#/definitions/Id"
     required:
-      - uid
       - email
       - firstName
       - lastName
@@ -80,6 +77,25 @@ definitions:
       - city
       - state
       - zip
+  Preferences:
+    type: object
+    properties:
+      day:
+        type: number
+      time:
+        type: string
+        enum: ["MORNING", "AFTERNOON", "EVENING"]
+      providerId:
+        type: string
+      staffClassification:
+        type: string
+      hairStyle:
+        type: object
+        properties:
+          style:
+            type: string
+          type:
+            type: string
   ServiceProvider:
     type: object
     properties:
@@ -151,6 +167,8 @@ paths:
             properties:
               address:
                 $ref: "#/definitions/Address"
+              preferences:
+                $ref: "#/definitions/Preferences"
               birthday:
                 type: string
                 format: date
@@ -160,10 +178,6 @@ paths:
                 type: boolean
               phoneNumber:
                 $ref: "#/definitions/PhoneNumber"
-              uid:
-                $ref: "#/definitions/Id"
-            required:
-              - uid
       responses:
         200:
           description: Updates were successful
@@ -189,6 +203,12 @@ paths:
           type: string
           required: true
           description: Profile ID to be queried. Typically the UID of the user
+        - in: query
+          name: select
+          type: string
+          enum: ["preferences", "address"]
+          required: false
+          description: Specify which sub components for the profile you want returned if they exist
       responses:
         200:
           description: Profile was found
