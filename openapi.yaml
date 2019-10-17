@@ -264,3 +264,67 @@ paths:
           description: Request is malformed or profile already exists
           schema:
             $ref: "#/definitions/Message"
+  /configuration/staffClassification:
+    get:
+      summary: Query Provider related staff classification configuration settings
+      operationId: providerConfigurationStaffClassificationQuery
+      x-google-backend:
+        address: https://service-provider-config-service-vllmtwjp2a-uc.a.run.app/
+        path_translation: APPEND_PATH_TO_ADDRESS
+      responses:
+        200:
+          description: Configuration
+          schema:
+            type: object
+            properties:
+              types:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    type:
+                      type: string
+        400:
+          description: Invalid request
+          schema:
+            $ref: "#/definitions/Message"
+        500:
+          description: System error
+          schema:
+            $ref: "#/definitions/Message"
+  /configuration/styles:
+    get:
+      summary: Query Provider related style configuration settings
+      operationId: providerConfigurationStyleQuery
+      x-google-backend:
+        address: https://service-provider-config-service-vllmtwjp2a-uc.a.run.app/
+        path_translation: APPEND_PATH_TO_ADDRESS
+      responses:
+        200:
+          description: Configuration
+          schema:
+            type: object
+            properties:
+              hairStyles:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    style:
+                      type: string
+                    types:
+                      type: array
+                      items:
+                        type: string
+        400:
+          description: Invalid request
+          schema:
+            $ref: "#/definitions/Message"
+        500:
+          description: System error
+          schema:
+            $ref: "#/definitions/Message"
