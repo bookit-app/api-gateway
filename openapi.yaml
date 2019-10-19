@@ -264,6 +264,7 @@ paths:
           description: Request is malformed or profile already exists
           schema:
             $ref: "#/definitions/Message"
+
   /configuration/staffClassification:
     get:
       summary: Query Provider related staff classification configuration settings
@@ -294,6 +295,7 @@ paths:
           description: System error
           schema:
             $ref: "#/definitions/Message"
+
   /configuration/styles:
     get:
       summary: Query Provider related style configuration settings
@@ -326,5 +328,45 @@ paths:
             $ref: "#/definitions/Message"
         500:
           description: System error
+          schema:
+            $ref: "#/definitions/Message"
+
+  /search/provider:
+    get:
+      summary: Search for Service Providers based on query parameters
+      operationId: providerSearch
+      x-google-backend:
+        address: https://provider-search-vllmtwjp2a-uc.a.run.app/search
+        path_translation: CONSTANT_ADDRESS
+      parameters:
+        - in: query
+          name: city
+          type: string
+          description: City where the Provider is located
+        - in: query
+          name: state
+          type: string
+          description: State where the Provider is located
+        - in: query
+          name: zip
+          type: string
+          description: Zip Code where the Provider is located
+        - in: query
+          name: businessName
+          type: string
+          description: Business Name of the provider
+      responses:
+        200:
+          description: Profile was found
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Profile"
+        400:
+          description: Invalid request as no query parameters are provided
+          schema:
+            $ref: "#/definitions/Message"
+        500:
+          description: Server failure
           schema:
             $ref: "#/definitions/Message"
