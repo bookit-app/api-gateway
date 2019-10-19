@@ -357,11 +357,19 @@ paths:
           description: Business Name of the provider
       responses:
         200:
-          description: Profile was found
+          description: Provider Details
           schema:
             type: array
             items:
-              $ref: "#/definitions/Profile"
+              type: object
+              properties:
+                providerId:
+                  type: string
+                businessName:
+                  type: string
+                  minLength: 1
+                address:
+                  $ref: "#/definitions/Address"
         400:
           description: Invalid request as no query parameters are provided
           schema:
