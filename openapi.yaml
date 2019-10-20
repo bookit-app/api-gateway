@@ -272,6 +272,35 @@ paths:
           schema:
             $ref: "#/definitions/Message"
 
+  /provider/{providerId}:
+    get:
+      summary: Query for a Specific Service Provider
+      operationId: providerQuery
+      x-google-backend:
+        address: https://query-service-provider-vllmtwjp2a-uc.a.run.app/
+        path_translation: APPEND_PATH_TO_ADDRESS
+      parameters:
+        - in: path
+          name: providerId
+          type: string
+          required: true
+          description: Provider ID to be queried.
+        - in: query
+          name: select
+          type: string
+          enum: ["address"]
+          required: false
+          description: Specify which sub components for the provider object you want returned if they exist
+      responses:
+        200:
+          description: Provider was found
+          schema:
+            $ref: "#/definitions/ServiceProvider"
+        400:
+          description: Invalid request typically providerId is missing
+        404:
+          description: Provider doesn't exist
+
   /configuration/staffClassification:
     get:
       summary: Query Provider related staff classification configuration settings
