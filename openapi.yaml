@@ -126,7 +126,7 @@ definitions:
     properties:
       styleId:
         type: string
-      isCustomerServiceType:
+      isCustomServiceType:
         type: boolean
       description:
         type: string
