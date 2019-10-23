@@ -139,7 +139,6 @@ definitions:
         maxLength: 3
         enum: ["USD"]
     required:
-      - styleId
       - description
       - price
   Message:
