@@ -132,6 +132,7 @@ definitions:
         type: string
       price:
         type: number
+        minimum: 0
       currency:
         type: string
         minLength: 3
