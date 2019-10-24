@@ -117,6 +117,10 @@ definitions:
         format: email
       address:
         $ref: "#/definitions/Address"
+      services:
+        type: array
+        items:
+          $ref: "#/definitions/Service"
     required:
       - ein
       - businessName
