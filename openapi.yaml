@@ -446,6 +446,10 @@ paths:
           name: businessName
           type: string
           description: Business Name of the provider
+        - in: query
+          name: styles
+          type: string
+          description: Will filter the providers which offer the provided style
       responses:
         200:
           description: Provider Details
