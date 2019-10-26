@@ -232,12 +232,6 @@ paths:
           type: string
           required: true
           description: Profile ID to be queried. Typically the UID of the user
-        - in: query
-          name: select
-          type: string
-          enum: ["preferences", "address"]
-          required: false
-          description: Specify which sub components for the profile you want returned if they exist
       responses:
         200:
           description: Profile was found
@@ -307,12 +301,6 @@ paths:
           type: string
           required: true
           description: Provider ID to be queried.
-        - in: query
-          name: select
-          type: string
-          enum: ["address"]
-          required: false
-          description: Specify which sub components for the provider object you want returned if they exist
       responses:
         200:
           description: Provider was found
