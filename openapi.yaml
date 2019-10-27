@@ -310,6 +310,31 @@ paths:
           description: Invalid request typically providerId is missing
         404:
           description: Provider doesn't exist
+    delete:
+      summary: Delete provider
+      operationId: providerDelete
+      x-google-backend:
+        address:  https://delete-service-provider-vllmtwjp2a-uc.a.run.app/
+        path_translation: APPEND_PATH_TO_ADDRESS
+      parameters:
+        - in: path
+          name: providerId
+          type: string
+          required: true
+          description: Provider ID to be deleted.
+      responses:
+        204:
+          description: Provider was deleted
+        400:
+          description: Invalid request providerId is missing
+          schema:
+            $ref: "#/definitions/Message"
+        404:
+          description: Provider doesn't exist
+        500:
+          description: Server failed to handle the request
+          schema:
+            $ref: "#/definitions/Message"
 
   /provider/{providerId}/services:
     post:
