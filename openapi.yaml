@@ -314,7 +314,7 @@ paths:
       summary: Delete provider
       operationId: providerDelete
       x-google-backend:
-        address:  https://delete-service-provider-vllmtwjp2a-uc.a.run.app/
+        address: https://delete-service-provider-vllmtwjp2a-uc.a.run.app/
         path_translation: APPEND_PATH_TO_ADDRESS
       parameters:
         - in: path
@@ -359,6 +359,55 @@ paths:
           description: Service Provider is created and linked to users account
         400:
           description: Request is malformed or profile already exists
+          schema:
+            $ref: "#/definitions/Message"
+
+  /provider/{providerId}/services/{serviceId}:
+    patch:
+      summary: Modify a service offering
+      operationId: serviceOfferingUpdate
+      x-google-backend:
+        address: https://update-service-offering-vllmtwjp2a-uc.a.run.app/
+        path_translation: APPEND_PATH_TO_ADDRESS
+      parameters:
+        - in: path
+          name: providerId
+          type: string
+          required: true
+          description: Provider ID to associate the service offering with
+        - in: path
+          name: serviceId
+          type: string
+          required: true
+          description: Service ID to associate the service offering with
+        - in: body
+          name: serviceOffering
+          description: Details of the service offering to be updated
+          schema:
+            type: object
+            properties:
+              description:
+                type: string
+              price:
+                type: number
+                minimum: 0
+              currency:
+                type: string
+                minLength: 3
+                maxLength: 3
+                enum: ["USD"]
+            required:
+              - description
+              - price
+      responses:
+        200:
+          description: Updates were successful
+        400:
+          description: Request is malformed
+          schema:
+            $ref: "#/definitions/Message"
+        500:
+          description: System Error
           schema:
             $ref: "#/definitions/Message"
 
