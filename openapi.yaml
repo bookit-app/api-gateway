@@ -512,6 +512,11 @@ paths:
           name: styles
           type: string
           description: Will filter the providers which offer the provided style
+        - in: query
+          name: priceRange
+          type: string
+          enum: ["$", "$$", "$$$", "$$$$"]
+          description: Will filter the providers which offer service within the provide price range or less. $ < 5, $$ > 5 and < 15, $$$ > 15 < 30, $$$$ > 30
       responses:
         200:
           description: Provider Details
