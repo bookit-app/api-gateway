@@ -152,6 +152,32 @@ definitions:
         type: string
       technicalError:
         type: string
+  Appointment:
+    type: object
+    properties:
+      providerId:
+        type: string
+      staffMemberId:
+        type: string
+      date:
+        type: string
+        format: date
+      time:
+        type: string
+        format: time
+      state:
+        type: string
+        enum: ["BOOKED", "CANCELED", "COMPLETED"]
+      note:
+        type: string
+      status:
+        type: object
+        properties:
+          code:
+            type: string
+            enum: ["DELAYED", "ON-TIME", "READY"]
+          comment:
+            type: string
 securityDefinitions:
   firebase:
     authorizationUrl: ""
@@ -538,5 +564,131 @@ paths:
             $ref: "#/definitions/Message"
         500:
           description: Server failure
+          schema:
+            $ref: "#/definitions/Message"
+
+  /appointments:
+    post:
+      summary: Create a new Appointment
+      operationId: appointmentCreate
+      x-google-backend:
+        address: https://create-appointment-vllmtwjp2a-uc.a.run.app
+        path_translation: APPEND_PATH_TO_ADDRESS
+      parameters:
+        - in: body
+          name: appointment
+          description: Details of the Appointment to be created
+          schema:
+            type: object
+            properties:
+              providerId:
+                type: string
+              staffMemberId:
+                type: string
+              date:
+                type: string
+                format: date
+              time:
+                type: string
+                format: time
+              note:
+                type: string
+      responses:
+        201:
+          description: Appointment is created
+        400:
+          description: Request is malformed
+          schema:
+            $ref: "#/definitions/Message"
+
+  /appointments/{appointmentId}:
+    get:
+      summary: Query for a Specific Appointment
+      operationId: appointmentQuery
+      x-google-backend:
+        address: https://query-appointment-vllmtwjp2a-uc.a.run.app
+        path_translation: APPEND_PATH_TO_ADDRESS
+      parameters:
+        - in: path
+          name: appointmentId
+          type: string
+          required: true
+          description: Appointment ID to be queried.
+      responses:
+        200:
+          description: Appointment was found
+          schema:
+            $ref: "#/definitions/Appointment"
+        400:
+          description: Invalid request typically appointmentId is missing
+        404:
+          description: doesn't exist
+    patch:
+      summary: Update an Appointment
+      operationId: appointmentUpdate
+      x-google-backend:
+        address: https://update-appointment-vllmtwjp2a-uc.a.run.app
+        path_translation: APPEND_PATH_TO_ADDRESS
+      parameters:
+        - in: path
+          name: appointmentId
+          type: string
+          required: true
+          description: Appointment ID to be updated.
+        - in: body
+          name: appointment
+          description: Details of the Appointment to be updated
+          schema:
+            type: object
+            properties:
+              date:
+                type: string
+                format: date
+              time:
+                type: string
+                format: time
+              state:
+                type: string
+                enum: ["BOOKED", "CANCELED", "COMPLETED"]
+              note:
+                type: string
+              status:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    enum: ["DELAYED", "ON-TIME", "READY"]
+                  comment:
+                    type: string
+      responses:
+        200:
+          description: Appointment is updated
+        400:
+          description: Request is malformed
+          schema:
+            $ref: "#/definitions/Message"
+    delete:
+      summary: Delete Appointment
+      operationId: appointmentDelete
+      x-google-backend:
+        address: https://delete-appointment-vllmtwjp2a-uc.a.run.app
+        path_translation: APPEND_PATH_TO_ADDRESS
+      parameters:
+        - in: path
+          name: appointmentId
+          type: string
+          required: true
+          description: Appointment ID to be queried.
+      responses:
+        204:
+          description: Appointment was deleted
+        400:
+          description: Invalid request appointmentId is missing
+          schema:
+            $ref: "#/definitions/Message"
+        404:
+          description: Appointment doesn't exist
+        500:
+          description: Server failed to handle the request
           schema:
             $ref: "#/definitions/Message"
