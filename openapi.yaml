@@ -121,6 +121,10 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/Service"
+      staff:
+        type: array
+        items: 
+          $ref: "#/definitions/Staff"
     required:
       - ein
       - businessName
@@ -143,6 +147,16 @@ definitions:
     required:
       - description
       - price
+  Staff:
+    type: object
+    properties:
+      staffMemberId:
+        type: string
+      email:
+        type: string
+        format: email
+      name:
+        type: string
   Message:
     type: object
     properties:
@@ -178,6 +192,23 @@ definitions:
             enum: ["DELAYED", "ON-TIME", "READY"]
           comment:
             type: string
+  StaffMembershipRequest:
+    type: object
+    properties: 
+      id:
+        type: string
+      providerId:
+        type: string
+      businessName:
+        type: string
+      requestedUid:
+        type: string
+      requestedStaffMemberEmail:
+        type: string
+        format: email
+      status:
+        type: string
+        enum: ["NEW", "ACCEPTED", "DECLINED"]
 securityDefinitions:
   firebase:
     authorizationUrl: ""
@@ -692,3 +723,75 @@ paths:
           description: Server failed to handle the request
           schema:
             $ref: "#/definitions/Message"
+
+  /staffMembershipRequest:
+    get:
+      summary: Retrieve all of the staffMembershipRequested for sent to the current user based on the email associated with the profile
+      operationId: queryStaffMembershipRequest
+      x-google-backend:
+        address: https://staff-membership-request-query-vllmtwjp2a-uc.a.run.app
+        path_translation: CONSTANT_ADDRESS
+      responses:
+        201:
+          description: Staff Membership Request is created
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/StaffMembershipRequest"  
+        400:
+          description: Request is malformed
+          schema:
+            $ref: "#/definitions/Message"       
+    post:
+      summary: Create a Request to add a staff member to a service provider
+      operationId: createStaffMembershipRequest
+      x-google-backend:
+        address: https://staff-membership-request-vllmtwjp2a-uc.a.run.app
+        path_translation: CONSTANT_ADDRESS
+      parameters:
+        - in: body
+          name: staffMembershipRequest
+          description: Email of the person which is being requested to join the service provider as a staff member
+          schema:
+            type: object
+            properties: 
+              requestedStaffMemberEmail:
+                type: string
+                format: email
+      responses:
+        201:
+          description: Staff Membership Request is created
+        400:
+          description: Request is malformed
+          schema:
+            $ref: "#/definitions/Message" 
+
+  /staffMembershipRequest/{requestId}:
+    patch:
+      summary: Update the status on the staff membership request
+      operationId: updateStaffMembershipRequest
+      x-google-backend:
+        address: https://staff-membership-request-update-vllmtwjp2a-uc.a.run.app
+        path_translation: CONSTANT_ADDRESS
+      parameters:
+        - in: path
+          name: requestId
+          description: The staff membership requested ID to be updated
+          required: true
+          type: string
+        - in: body
+          name: status
+          description: Update the status
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                enum: ["ACCEPTED","DECLINED"]
+      responses:
+        200:
+          description: Staff Membership Request is updated
+        400:
+          description: Request is malformed
+          schema:
+            $ref: "#/definitions/Message" 
