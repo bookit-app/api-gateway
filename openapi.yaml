@@ -724,6 +724,54 @@ paths:
           schema:
             $ref: "#/definitions/Message"
 
+  /search/appointments:
+    get:
+      summary: Search for Appointments based on query parameters
+      operationId: appointmentSearch
+      x-google-backend:
+        address: https://appointment-search-vllmtwjp2a-uc.a.run.app/search
+        path_translation: CONSTANT_ADDRESS
+      parameters:
+        - in: query
+          name: mine
+          description: Only return appointments where the user is the client
+          type: boolean
+          required: false
+        - in: query
+          name: providerId
+          type: string
+          description: Provider ID
+        - in: query
+          name: fromDate
+          type: string
+          description: Date from which to look for appointments inclusive
+          required: false
+        - in: query
+          name: toDate
+          type: string
+          description: Date to which to look for appointments inclusive
+          required: false
+        - in: query
+          name: staffMemberId
+          type: string
+          description: A specific staff member to look for
+          required: false
+      responses:
+        200:
+          description: Appointment Details
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Appointment"
+        400:
+          description: Invalid request as no query parameters are provided
+          schema:
+            $ref: "#/definitions/Message"
+        500:
+          description: Server failure
+          schema:
+            $ref: "#/definitions/Message"
+
   /staffMembershipRequest:
     get:
       summary: Retrieve all of the staffMembershipRequested for sent to the current user based on the email associated with the profile
