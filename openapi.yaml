@@ -3,7 +3,7 @@ info:
   title: Bookit Backend API
   description: Sample API on Cloud Endpoints with a Google Cloud Functions backend
   version: 0.0.1
-host: esp-vllmtwjp2a-uc.a.run.app
+host: esp-fjwomrdjca-ue.a.run.app
 schemes:
   - https
 consumes:
@@ -214,9 +214,9 @@ securityDefinitions:
     authorizationUrl: ""
     flow: "implicit"
     type: "oauth2"
-    x-google-issuer: "https://securetoken.google.com/sweng-581-capstone"
+    x-google-issuer: "https://securetoken.google.com/bookit-app-260021"
     x-google-jwks_uri: "https://www.googleapis.com/service_accounts/v1/metadata/x509/securetoken@system.gserviceaccount.com"
-    x-google-audiences: "sweng-581-capstone"
+    x-google-audiences: "bookit-app-260021"
 security:
   - firebase: []
 paths:
@@ -225,7 +225,7 @@ paths:
       summary: Create a new User Profile
       operationId: profileCreate
       x-google-backend:
-        address: https://create-profile-vllmtwjp2a-uc.a.run.app/
+        address: https://create-profile-fjwomrdjca-ue.a.run.app/
       parameters:
         - in: body
           name: profile
@@ -243,7 +243,7 @@ paths:
       summary: Modify a user profile
       operationId: profileUpdate
       x-google-backend:
-        address: https://update-profile-vllmtwjp2a-uc.a.run.app/
+        address: https://update-profile-fjwomrdjca-ue.a.run.app/
       parameters:
         - in: body
           name: profile
@@ -281,7 +281,7 @@ paths:
       summary: Query for a user profile
       operationId: profileQuery
       x-google-backend:
-        address: https://query-profile-vllmtwjp2a-uc.a.run.app/
+        address: https://query-profile-fjwomrdjca-ue.a.run.app/
         path_translation: APPEND_PATH_TO_ADDRESS
       parameters:
         - in: path
@@ -302,7 +302,7 @@ paths:
       summary: Delete user profile
       operationId: profileDelete
       x-google-backend:
-        address: https://delete-profile-vllmtwjp2a-uc.a.run.app/
+        address: https://delete-profile-fjwomrdjca-ue.a.run.app/
         path_translation: APPEND_PATH_TO_ADDRESS
       parameters:
         - in: path
@@ -329,7 +329,7 @@ paths:
       summary: Create a new Service Provider
       operationId: serviceProviderCreate
       x-google-backend:
-        address: https://create-service-provider-vllmtwjp2a-uc.a.run.app/
+        address: https://create-service-provider-fjwomrdjca-ue.a.run.app/
         path_translation: CONSTANT_ADDRESS
       parameters:
         - in: body
@@ -350,7 +350,7 @@ paths:
       summary: Query for a Specific Service Provider
       operationId: providerQuery
       x-google-backend:
-        address: https://query-service-provider-vllmtwjp2a-uc.a.run.app/
+        address: https://query-service-provider-fjwomrdjca-ue.a.run.app/
         path_translation: APPEND_PATH_TO_ADDRESS
       parameters:
         - in: path
@@ -371,7 +371,7 @@ paths:
       summary: Delete provider
       operationId: providerDelete
       x-google-backend:
-        address: https://delete-service-provider-vllmtwjp2a-uc.a.run.app/
+        address: https://delete-service-provider-fjwomrdjca-ue.a.run.app/
         path_translation: APPEND_PATH_TO_ADDRESS
       parameters:
         - in: path
@@ -398,7 +398,7 @@ paths:
       summary: Create a new Service Offering for a Provider
       operationId: serviceOfferingCreate
       x-google-backend:
-        address: https://create-service-offering-vllmtwjp2a-uc.a.run.app/
+        address: https://create-service-offering-fjwomrdjca-ue.a.run.app/
         path_translation: APPEND_PATH_TO_ADDRESS
       parameters:
         - in: path
@@ -424,7 +424,7 @@ paths:
       summary: Modify a service offering
       operationId: serviceOfferingUpdate
       x-google-backend:
-        address: https://update-service-offering-vllmtwjp2a-uc.a.run.app/
+        address: https://update-service-offering-fjwomrdjca-ue.a.run.app/
         path_translation: APPEND_PATH_TO_ADDRESS
       parameters:
         - in: path
@@ -473,7 +473,7 @@ paths:
       summary: Query Provider related staff classification configuration settings
       operationId: providerConfigurationStaffClassificationQuery
       x-google-backend:
-        address: https://service-provider-config-service-vllmtwjp2a-uc.a.run.app/
+        address: https://service-provider-config-service-fjwomrdjca-ue.a.run.app/
         path_translation: APPEND_PATH_TO_ADDRESS
       responses:
         200:
@@ -504,7 +504,7 @@ paths:
       summary: Query Provider related style configuration settings
       operationId: providerConfigurationStyleQuery
       x-google-backend:
-        address: https://service-provider-config-service-vllmtwjp2a-uc.a.run.app/
+        address: https://service-provider-config-service-fjwomrdjca-ue.a.run.app/
         path_translation: APPEND_PATH_TO_ADDRESS
       responses:
         200:
@@ -546,7 +546,7 @@ paths:
       summary: Search for Service Providers based on query parameters
       operationId: providerSearch
       x-google-backend:
-        address: https://provider-search-vllmtwjp2a-uc.a.run.app/search
+        address: https://provider-search-fjwomrdjca-ue.a.run.app/search
         path_translation: CONSTANT_ADDRESS
       parameters:
         - in: query
@@ -603,7 +603,7 @@ paths:
       summary: Create a new Appointment
       operationId: appointmentCreate
       x-google-backend:
-        address: https://create-appointment-vllmtwjp2a-uc.a.run.app
+        address: https://create-appointment-fjwomrdjca-ue.a.run.app
         path_translation: APPEND_PATH_TO_ADDRESS
       parameters:
         - in: body
@@ -637,7 +637,7 @@ paths:
       summary: Query for a Specific Appointment
       operationId: appointmentQuery
       x-google-backend:
-        address: https://query-appointment-vllmtwjp2a-uc.a.run.app
+        address: https://query-appointment-fjwomrdjca-ue.a.run.app
         path_translation: APPEND_PATH_TO_ADDRESS
       parameters:
         - in: path
@@ -658,7 +658,7 @@ paths:
       summary: Update an Appointment
       operationId: appointmentUpdate
       x-google-backend:
-        address: https://update-appointment-vllmtwjp2a-uc.a.run.app
+        address: https://update-appointment-fjwomrdjca-ue.a.run.app
         path_translation: APPEND_PATH_TO_ADDRESS
       parameters:
         - in: path
@@ -702,7 +702,7 @@ paths:
       summary: Delete Appointment
       operationId: appointmentDelete
       x-google-backend:
-        address: https://delete-appointment-vllmtwjp2a-uc.a.run.app
+        address: https://delete-appointment-fjwomrdjca-ue.a.run.app
         path_translation: APPEND_PATH_TO_ADDRESS
       parameters:
         - in: path
@@ -729,7 +729,7 @@ paths:
       summary: Search for Appointments based on query parameters
       operationId: appointmentSearch
       x-google-backend:
-        address: https://appointment-search-vllmtwjp2a-uc.a.run.app/search
+        address: https://appointment-search-fjwomrdjca-ue.a.run.app/search
         path_translation: CONSTANT_ADDRESS
       parameters:
         - in: query
@@ -777,7 +777,7 @@ paths:
       summary: Retrieve all of the staffMembershipRequested for sent to the current user based on the email associated with the profile
       operationId: queryStaffMembershipRequest
       x-google-backend:
-        address: https://staff-membership-request-query-vllmtwjp2a-uc.a.run.app
+        address: https://staff-membership-request-query-fjwomrdjca-ue.a.run.app
         path_translation: CONSTANT_ADDRESS
       responses:
         201:
@@ -794,7 +794,7 @@ paths:
       summary: Create a Request to add a staff member to a service provider
       operationId: createStaffMembershipRequest
       x-google-backend:
-        address: https://staff-membership-request-vllmtwjp2a-uc.a.run.app
+        address: https://staff-membership-request-fjwomrdjca-ue.a.run.app
         path_translation: CONSTANT_ADDRESS
       parameters:
         - in: body
@@ -819,7 +819,7 @@ paths:
       summary: Update the status on the staff membership request
       operationId: updateStaffMembershipRequest
       x-google-backend:
-        address: https://staff-membership-request-update-vllmtwjp2a-uc.a.run.app
+        address: https://staff-membership-request-update-fjwomrdjca-ue.a.run.app
         path_translation: CONSTANT_ADDRESS
       parameters:
         - in: path

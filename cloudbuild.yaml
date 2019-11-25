@@ -7,15 +7,17 @@ steps:
       - deploy
       - openapi.yaml
       - --validate-only
+      
   - name: "gcr.io/cloud-builders/gcloud"
     id: deploy
-    waitFor:
-      - validate
+    # waitFor:
+    #   - validate
     args:
       - endpoints
       - services
       - deploy
       - openapi.yaml
+
   - name: "gcr.io/cloud-builders/gcloud"
     waitFor:
       - deploy
@@ -27,4 +29,5 @@ steps:
       - --image=gcr.io/endpoints-release/endpoints-runtime-serverless:1
       - --allow-unauthenticated
       - --platform=managed
-      - --region=us-central1
+      - --region=us-east1
+      - --update-env-vars=ENDPOINTS_SERVICE_NAME=esp-fjwomrdjca-ue.a.run.app
