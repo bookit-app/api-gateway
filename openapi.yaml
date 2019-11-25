@@ -473,7 +473,7 @@ paths:
       summary: Query Provider related staff classification configuration settings
       operationId: providerConfigurationStaffClassificationQuery
       x-google-backend:
-        address: https://service-provider-config-service-fjwomrdjca-ue.a.run.app/
+        address: https://configuration-service-fjwomrdjca-ue.a.run.app/
         path_translation: APPEND_PATH_TO_ADDRESS
       responses:
         200:
@@ -504,7 +504,7 @@ paths:
       summary: Query Provider related style configuration settings
       operationId: providerConfigurationStyleQuery
       x-google-backend:
-        address: https://service-provider-config-service-fjwomrdjca-ue.a.run.app/
+        address: https://configuration-service-fjwomrdjca-ue.a.run.app/
         path_translation: APPEND_PATH_TO_ADDRESS
       responses:
         200:
