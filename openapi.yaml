@@ -820,7 +820,7 @@ paths:
       operationId: updateStaffMembershipRequest
       x-google-backend:
         address: https://staff-membership-request-update-fjwomrdjca-ue.a.run.app
-        path_translation: CONSTANT_ADDRESS
+        path_translation: APPEND_PATH_TO_ADDRESS
       parameters:
         - in: path
           name: requestId
