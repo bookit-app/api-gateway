@@ -173,7 +173,15 @@ definitions:
     properties:
       providerId:
         type: string
+      businessName:
+        type: string
       staffMemberId:
+        type: string
+      staffMemberName:
+        type: string
+      serviceId:
+        type: string
+      styleId:
         type: string
       date:
         type: string
@@ -658,6 +666,7 @@ paths:
                 format: time
               note:
                 type: string
+            required: ['date', 'time', 'providerId', 'serviceId', 'staffMemberId']
       responses:
         201:
           description: Appointment is created
