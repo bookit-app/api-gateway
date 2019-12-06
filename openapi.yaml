@@ -112,6 +112,8 @@ definitions:
       businessName:
         type: string
         minLength: 1
+      phoneNumber:
+        $ref: "#/definitions/PhoneNumber"
       email:
         type: string
         format: email
@@ -181,7 +183,7 @@ definitions:
         format: time
       state:
         type: string
-        enum: ["BOOKED", "CANCELED", "COMPLETED"]
+        enum: ["BOOKED", "CANCELLED", "COMPLETED"]
       note:
         type: string
       status:
@@ -342,6 +344,36 @@ paths:
           description: Service Provider is created and linked to users account
         400:
           description: Request is malformed or profile already exists
+          schema:
+            $ref: "#/definitions/Message"
+    patch:
+      summary: Update a Service Provider linked to the current user
+      operationId: serviceProviderUpdate
+      x-google-backend:
+        address: https://update-service-provider-fjwomrdjca-ue.a.run.app/
+        path_translation: CONSTANT_ADDRESS
+      parameters:
+        - in: body
+          name: serviceProvider
+          description: Details of the Service Provider to be updated
+          schema:
+            type: object
+            properties:
+              businessName:
+                type: string
+                minLength: 1
+              phoneNumber:
+                $ref: "#/definitions/PhoneNumber"
+              email:
+                type: string
+                format: email
+              address:
+                $ref: "#/definitions/Address"
+      responses:
+        201:
+          description: Service Provider is updated
+        400:
+          description: Request is malformed
           schema:
             $ref: "#/definitions/Message"
 
@@ -614,6 +646,8 @@ paths:
             properties:
               providerId:
                 type: string
+              serviceId:
+                type: string
               staffMemberId:
                 type: string
               date:
@@ -680,7 +714,7 @@ paths:
                 format: time
               state:
                 type: string
-                enum: ["BOOKED", "CANCELED", "COMPLETED"]
+                enum: ["BOOKED", "CANCELLED", "COMPLETED"]
               note:
                 type: string
               status:
